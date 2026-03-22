@@ -12,6 +12,7 @@ body {
     background: black;
 }
 
+/* Pantalla inicial */
 .inicio {
     position: fixed;
     width: 100%;
@@ -34,7 +35,31 @@ button {
     border-radius: 10px;
 }
 
-.flores {
+/* Pantalla principal */
+.contenido {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: black;
+    color: white;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 2s;
+}
+
+/* Texto */
+.texto {
+    position: absolute;
+    top: 40%;
+    width: 100%;
+    padding: 0 20px;
+    font-size: 28px;
+    font-weight: bold;
+    text-shadow: 2px 2px 5px black;
+}
+
+/* Imagen final */
+.final {
     position: fixed;
     width: 100%;
     height: 100vh;
@@ -43,18 +68,9 @@ button {
     background-color: black;
     opacity: 0;
     transition: opacity 2s;
-    color: white;
-    text-align: center;
 }
 
-.texto {
-    position: absolute;
-    top: 35%;
-    width: 100%;
-    padding: 0 20px;
-    text-shadow: 2px 2px 5px black;
-}
-
+/* Flores */
 .flower {
     position: absolute;
     width: 20px;
@@ -74,18 +90,25 @@ button {
 
 <body>
 
+<!-- Pantalla inicial -->
 <div class="inicio" id="inicio">
     <h1>🌻 Tengo algo para ti</h1>
     <button onclick="start()">Abrir 💛</button>
 </div>
 
-<div class="flores" id="flores">
+<!-- Contenido -->
+<div class="contenido" id="contenido">
     <div class="texto" id="texto"></div>
-
-    <audio id="musica" loop>
-        <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3">
-    </audio>
 </div>
+
+<!-- Imagen final -->
+<div class="final" id="final"></div>
+
+<!-- Música -->
+<iframe width="0" height="0" 
+src="https://www.youtube.com/embed/BtZlp9V7Woc?autoplay=1&loop=1&playlist=BtZlp9V7Woc" 
+allow="autoplay">
+</iframe>
 
 <script>
 function start() {
@@ -93,12 +116,13 @@ function start() {
 
     setTimeout(() => {
         document.getElementById("inicio").style.display = "none";
-        document.getElementById("flores").style.opacity = "1";
-        document.getElementById("musica").play();
+        document.getElementById("contenido").style.opacity = "1";
         historia();
+        activarFlores();
     }, 1000);
 }
 
+/* Mensajes */
 const mensajes = [
     "🌻 Para ti 💛",
     "Hoy todos regalan flores amarillas...",
@@ -116,14 +140,24 @@ let index = 0;
 
 function historia() {
     if (index < mensajes.length) {
-        document.getElementById("texto").innerHTML = "<h2>" + mensajes[index] + "</h2>";
+        document.getElementById("texto").innerHTML = mensajes[index];
         index++;
         setTimeout(historia, 2500);
     } else {
-        activarFlores();
+        mostrarFinal();
     }
 }
 
+/* Mostrar imagen al final */
+function mostrarFinal() {
+    document.getElementById("contenido").style.opacity = "0";
+
+    setTimeout(() => {
+        document.getElementById("final").style.opacity = "1";
+    }, 2000);
+}
+
+/* Flores */
 function activarFlores() {
     setInterval(() => {
         const flor = document.createElement("div");
@@ -133,7 +167,7 @@ function activarFlores() {
         document.body.appendChild(flor);
 
         setTimeout(() => flor.remove(), 8000);
-    }, 300);
+    }, 200);
 }
 </script>
 
