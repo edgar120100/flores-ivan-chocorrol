@@ -7,23 +7,24 @@
 <style>
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
     overflow: hidden;
+    font-family: Arial, sans-serif;
+    background: black;
 }
 
-/* Pantalla inicial */
+/* Pantalla inicio */
 .inicio {
     position: fixed;
     width: 100%;
     height: 100vh;
-    background: linear-gradient(#000, #222);
+    background: black;
     color: white;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    z-index: 10;
     transition: opacity 1s;
+    z-index: 10;
 }
 
 button {
@@ -32,27 +33,26 @@ button {
     background: gold;
     border: none;
     border-radius: 10px;
-    cursor: pointer;
 }
 
-/* Pantalla flores */
+/* Pantalla principal */
 .flores {
+    position: fixed;
     width: 100%;
     height: 100vh;
     background: url('https://i.imgur.com/e25sQnA.jpeg') no-repeat center;
     background-size: contain;
     background-color: black;
-    position: relative;
-    color: white;
-    text-align: center;
     opacity: 0;
     transition: opacity 2s;
+    color: white;
+    text-align: center;
 }
 
 /* Texto */
 .texto {
     position: absolute;
-    top: 20%;
+    top: 40%;
     width: 100%;
     text-shadow: 2px 2px 5px black;
 }
@@ -77,18 +77,13 @@ button {
 
 <body>
 
-<!-- Inicio -->
 <div class="inicio" id="inicio">
     <h1>🌻 Tengo algo para ti</h1>
-    <button onclick="mostrar()">Ver regalo 💛</button>
+    <button onclick="start()">Abrir 💛</button>
 </div>
 
-<!-- Flores -->
 <div class="flores" id="flores">
-    <div class="texto">
-        <h1>Para ti, Iván 🌻</h1>
-        <p id="mensaje"></p>
-    </div>
+    <div class="texto" id="texto"></div>
 
     <audio id="musica" loop>
         <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3">
@@ -96,59 +91,53 @@ button {
 </div>
 
 <script>
-function mostrar() {
-    const inicio = document.getElementById("inicio");
-    const flores = document.getElementById("flores");
+function start() {
+    document.getElementById("inicio").style.opacity = "0";
 
-    inicio.style.opacity = "0";
     setTimeout(() => {
-        inicio.style.display = "none";
+        document.getElementById("inicio").style.display = "none";
+        document.getElementById("flores").style.opacity = "1";
+        document.getElementById("musica").play();
+        historia();
     }, 1000);
-
-    flores.style.opacity = "1";
-
-    document.getElementById("musica").play();
-
-    escribir();
 }
 
-/* Texto animado */
-const texto = `No sé en qué momento te volviste tan importante para mí...
-pero hay días en los que todo me lleva a ti.
+/* Secuencia estilo TikTok */
+const mensajes = [
+    "Iván… 💛",
+    "No sé en qué momento te volviste tan importante para mí...",
+    "pero hay días en los que todo me recuerda a ti.",
+    "Intento seguir como si nada...",
+    "pero la verdad es que te extraño.",
+    "Y no es solo a ti...",
+    "es a cómo me sentía contigo.",
+    "Solo quería que lo supieras 🌻"
+];
 
-Intento seguir como si nada,
-pero la verdad es que te extraño más de lo que quisiera admitir.
+let index = 0;
 
-No es solo extrañarte a ti,
-es extrañar cómo me sentía contigo.
-
-Y aunque no diga todo lo que siento,
-hay algo que sigue aquí… y eres tú 💛`;
-
-let i = 0;
-
-function escribir() {
-    if (i < texto.length) {
-        document.getElementById("mensaje").innerHTML += texto.charAt(i);
-        i++;
-        setTimeout(escribir, 35);
+function historia() {
+    if (index < mensajes.length) {
+        document.getElementById("texto").innerHTML = "<h2>" + mensajes[index] + "</h2>";
+        index++;
+        setTimeout(historia, 2500);
+    } else {
+        activarFlores();
     }
 }
 
-/* Flores dinámicas */
-function crearFlor() {
-    const flor = document.createElement("div");
-    flor.classList.add("flower");
-    flor.style.left = Math.random() * window.innerWidth + "px";
-    flor.style.animationDuration = (3 + Math.random() * 5) + "s";
-    document.body.appendChild(flor);
+/* Flores aparecen después */
+function activarFlores() {
+    setInterval(() => {
+        const flor = document.createElement("div");
+        flor.classList.add("flower");
+        flor.style.left = Math.random() * window.innerWidth + "px";
+        flor.style.animationDuration = (3 + Math.random() * 5) + "s";
+        document.body.appendChild(flor);
 
-    setTimeout(() => {
-        flor.remove();
-    }, 8000);
+        setTimeout(() => flor.remove(), 8000);
+    }, 300);
 }
-
-setInterval(crearFlor, 200);
 </script>
 
 </body>
