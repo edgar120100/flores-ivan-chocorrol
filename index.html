@@ -13,7 +13,7 @@ body {
 
 /* Pantalla inicial */
 .inicio {
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: 100vh;
     background: linear-gradient(#000, #222);
@@ -22,6 +22,8 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    z-index: 10;
+    transition: opacity 1s;
 }
 
 button {
@@ -35,15 +37,19 @@ button {
 
 /* Pantalla flores */
 .flores {
-    display: none;
     width: 100%;
     height: 100vh;
-    background: url('https://i.imgur.com/e25sQnA.jpeg') no-repeat center/cover;
+    background: url('https://i.imgur.com/e25sQnA.jpeg') no-repeat center;
+    background-size: contain;
+    background-color: black;
     position: relative;
     color: white;
     text-align: center;
+    opacity: 0;
+    transition: opacity 2s;
 }
 
+/* Texto */
 .texto {
     position: absolute;
     top: 20%;
@@ -71,32 +77,42 @@ button {
 
 <body>
 
-<!-- Pantalla inicial -->
+<!-- Inicio -->
 <div class="inicio" id="inicio">
     <h1>🌻 Tengo algo para ti</h1>
     <button onclick="mostrar()">Ver regalo 💛</button>
 </div>
 
-<!-- Pantalla flores -->
+<!-- Flores -->
 <div class="flores" id="flores">
     <div class="texto">
         <h1>Para ti, Iván 🌻</h1>
         <p id="mensaje"></p>
     </div>
 
-    <audio autoplay loop>
+    <audio id="musica" loop>
         <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3">
     </audio>
 </div>
 
 <script>
 function mostrar() {
-    document.getElementById("inicio").style.display = "none";
-    document.getElementById("flores").style.display = "block";
+    const inicio = document.getElementById("inicio");
+    const flores = document.getElementById("flores");
+
+    inicio.style.opacity = "0";
+    setTimeout(() => {
+        inicio.style.display = "none";
+    }, 1000);
+
+    flores.style.opacity = "1";
+
+    document.getElementById("musica").play();
+
     escribir();
 }
 
-/* Texto tipo animado */
+/* Texto animado */
 const texto = `No sé en qué momento te volviste tan importante para mí...
 pero hay días en los que todo me lleva a ti.
 
@@ -115,11 +131,11 @@ function escribir() {
     if (i < texto.length) {
         document.getElementById("mensaje").innerHTML += texto.charAt(i);
         i++;
-        setTimeout(escribir, 40);
+        setTimeout(escribir, 35);
     }
 }
 
-/* Flores */
+/* Flores dinámicas */
 function crearFlor() {
     const flor = document.createElement("div");
     flor.classList.add("flower");
@@ -132,7 +148,7 @@ function crearFlor() {
     }, 8000);
 }
 
-setInterval(crearFlor, 300);
+setInterval(crearFlor, 200);
 </script>
 
 </body>
