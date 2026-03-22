@@ -35,7 +35,7 @@ button {
     border-radius: 10px;
 }
 
-/* Pantalla principal */
+/* Contenido principal */
 .contenido {
     position: fixed;
     width: 100%;
@@ -53,7 +53,7 @@ button {
     top: 40%;
     width: 100%;
     padding: 0 20px;
-    font-size: 28px;
+    font-size: 30px;
     font-weight: bold;
     text-shadow: 2px 2px 5px black;
 }
@@ -104,11 +104,10 @@ button {
 <!-- Imagen final -->
 <div class="final" id="final"></div>
 
-<!-- Música -->
-<iframe width="0" height="0" 
-src="https://www.youtube.com/embed/BtZlp9V7Woc?autoplay=1&loop=1&playlist=BtZlp9V7Woc" 
-allow="autoplay">
-</iframe>
+<!-- 🎵 Música -->
+<audio id="musica" loop>
+    <source src="Flaco.mp3" type="audio/mp3">
+</audio>
 
 <script>
 function start() {
@@ -117,6 +116,9 @@ function start() {
     setTimeout(() => {
         document.getElementById("inicio").style.display = "none";
         document.getElementById("contenido").style.opacity = "1";
+
+        document.getElementById("musica").play(); // 🔥 reproduce la canción
+
         historia();
         activarFlores();
     }, 1000);
