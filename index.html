@@ -12,29 +12,25 @@ body {
     overflow: hidden;
     font-family: Arial, sans-serif;
     text-align: center;
+    color: white;
+}
+
+.container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-shadow: 2px 2px 5px black;
 }
 
 h1 {
-    margin-top: 40px;
-    color: white;
-    text-shadow: 2px 2px 5px black;
-    font-size: 30px;
+    font-size: 28px;
+    margin-bottom: 20px;
 }
 
 p {
-    color: white;
     font-size: 18px;
-    margin: 10px 20px;
-    text-shadow: 2px 2px 5px black;
-}
-
-.mensaje {
-    margin-top: 30px;
-    font-size: 16px;
     line-height: 1.5;
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .flower {
@@ -58,72 +54,81 @@ p {
 
 .flower::before {
     top: -10px;
-    left: 0;
 }
 
 .flower::after {
-    top: 0;
     left: -10px;
 }
 
 @keyframes fall {
-    0% {
-        transform: translateY(-50px);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(100vh);
-        opacity: 0;
-    }
+    0% { transform: translateY(-50px); }
+    100% { transform: translateY(100vh); }
 }
 </style>
 </head>
 
 <body>
 
-<h1>🌻 Para ti, Iván 🌻</h1>
-
-<p>Te extraño… más de lo que a veces quisiera admitir 💛</p>
-
-<div class="mensaje">
-<p>
-No sé en qué momento te volviste tan importante para mí,<br>
-pero hay días como hoy donde todo me recuerda a ti.<br><br>
-
-Despertar y sentir ese vacío…<br>
-como si algo faltara, y sé exactamente qué es.<br><br>
-
-No es solo extrañarte a ti,<br>
-es extrañar cómo me sentía cuando estaba contigo.<br><br>
-
-Y aunque no diga todo lo que siento,<br>
-hay cosas que siguen aquí… contigo, en mí.<br><br>
-
-Solo quería que lo supieras 🌻💛
-</p>
+<div class="container">
+    <h1 id="titulo"></h1>
+    <p id="texto"></p>
 </div>
 
-<!-- 🎵 Música -->
+<!-- Música -->
 <audio autoplay loop>
     <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mp3">
 </audio>
 
 <script>
-function createFlower() {
-    const flower = document.createElement("div");
-    flower.classList.add("flower");
+const titulo = "🌻 Para ti, Iván 🌻";
+const mensaje = `No sé en qué momento te volviste tan importante para mí...
+pero hay días en los que todo me lleva a ti.
 
-    flower.style.left = Math.random() * window.innerWidth + "px";
-    flower.style.animationDuration = (3 + Math.random() * 5) + "s";
+Intento seguir como si nada,
+pero la verdad es que te extraño más de lo que quisiera admitir.
 
-    document.body.appendChild(flower);
+No es solo extrañarte a ti,
+es extrañar cómo me sentía contigo.
+
+Y aunque no diga todo lo que siento,
+hay algo que sigue aquí… y eres tú 💛`;
+
+let i = 0;
+let j = 0;
+
+function escribirTitulo() {
+    if (i < titulo.length) {
+        document.getElementById("titulo").innerHTML += titulo.charAt(i);
+        i++;
+        setTimeout(escribirTitulo, 80);
+    } else {
+        escribirTexto();
+    }
+}
+
+function escribirTexto() {
+    if (j < mensaje.length) {
+        document.getElementById("texto").innerHTML += mensaje.charAt(j);
+        j++;
+        setTimeout(escribirTexto, 35);
+    }
+}
+
+escribirTitulo();
+
+function crearFlor() {
+    const flor = document.createElement("div");
+    flor.classList.add("flower");
+    flor.style.left = Math.random() * window.innerWidth + "px";
+    flor.style.animationDuration = (3 + Math.random() * 5) + "s";
+    document.body.appendChild(flor);
 
     setTimeout(() => {
-        flower.remove();
+        flor.remove();
     }, 8000);
 }
 
-setInterval(createFlower, 300);
+setInterval(crearFlor, 300);
 </script>
 
 </body>
