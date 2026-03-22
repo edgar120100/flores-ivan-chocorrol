@@ -12,7 +12,6 @@ body {
     background: black;
 }
 
-/* Pantalla inicio */
 .inicio {
     position: fixed;
     width: 100%;
@@ -35,7 +34,6 @@ button {
     border-radius: 10px;
 }
 
-/* Pantalla principal */
 .flores {
     position: fixed;
     width: 100%;
@@ -49,15 +47,14 @@ button {
     text-align: center;
 }
 
-/* Texto */
 .texto {
     position: absolute;
-    top: 40%;
+    top: 35%;
     width: 100%;
+    padding: 0 20px;
     text-shadow: 2px 2px 5px black;
 }
 
-/* Flores */
 .flower {
     position: absolute;
     width: 20px;
@@ -102,16 +99,17 @@ function start() {
     }, 1000);
 }
 
-/* Secuencia estilo TikTok */
 const mensajes = [
-    "Iván… 💛",
-    "No sé en qué momento te volviste tan importante para mí...",
-    "pero hay días en los que todo me recuerda a ti.",
-    "Intento seguir como si nada...",
-    "pero la verdad es que te extraño.",
-    "Y no es solo a ti...",
-    "es a cómo me sentía contigo.",
-    "Solo quería que lo supieras 🌻"
+    "🌻 Para ti 💛",
+    "Hoy todos regalan flores amarillas...",
+    "pero yo quise regalarte algo más mío 💛",
+    "No pude estar contigo, abrazarte o verte sonreír...",
+    "pero hice esto pensando en ti...",
+    "para que sientas lo mucho que te amo incluso a la distancia.",
+    "Eres mi alegría, mi calma y mi lugar favorito...",
+    "estés donde estés.",
+    "Tú me haces los días más bellos ❤️",
+    "🌼 Te amo muchísimo 🌼"
 ];
 
 let index = 0;
@@ -126,7 +124,6 @@ function historia() {
     }
 }
 
-/* Flores aparecen después */
 function activarFlores() {
     setInterval(() => {
         const flor = document.createElement("div");
